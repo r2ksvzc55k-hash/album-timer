@@ -1,1 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Релиз альбома — Lukаnn</title>
+  <style>
+    body {
+      background-color: #121212;
+      color: #ffffff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    h1 {
+      font-size: 20px;
+      margin-bottom: 12px;
+      color: #b3b3b3;
+      font-weight: 500;
+    }
+    #timer {
+      font-size: 36px;
+      font-weight: 800;
+      margin: 15px 0 25px;
+      letter-spacing: 1.5px;
+      font-variant-numeric: tabular-nums;
+    }
+    .btn {
+      background-color: #ff5500;
+      color: #ffffff;
+      text-decoration: none;
+      padding: 16px 32px;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 16px;
+      display: inline-block;
+      transition: transform 0.15s ease;
+    }
+    .btn:active {
+      transform: scale(0.96);
+    }
+  </style>
+</head>
+<body>
+
+  <h1 id="status">До выхода альбома осталось:</h1>
+  <div id="timer">00д : 00ч : 00м : 00с</div>
+  <a href="https://on.soundcloud.com/A7dU6dJt6eQC3BI8Rl" class="btn" target="_blank">Слушать на SoundCloud</a>
+
+  <script>
+    // 4 декабря 2026 года, 00:00 по Москве (UTC+3)
+    const releaseDate = new Date("2026-12-04T00:00:00+03:00").getTime();
+
+    function updateTimer() {
+      const now = new Date().getTime();
+      const distance = releaseDate - now;
+
+      if (distance <= 0) {
+        document.getElementById("status").innerText = "Альбом готов к выгрузке!";
+        document.getElementById("status").style.color = "#ffffff";
+        document.getElementById("status").style.fontSize = "26px";
+        document.getElementById("timer").style.display = "none";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById("timer").innerText =
+        `${String(days).padStart(2, '0')}д : ${String(hours).padStart(2, '0')}ч : ${String(minutes).padStart(2, '0')}м : ${String(seconds).padStart(2, '0')}с`;
+    }
+
+    updateTimer();
+    setInterval(updateTimer, 1000);
+  </script>
+</body>
+</html>
 
